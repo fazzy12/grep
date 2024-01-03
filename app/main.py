@@ -6,9 +6,9 @@ import re
 
 
 def match_pattern(input_line, pattern):
-    if pattern == "\\d":  # Check for the \d character class
+    if pattern == "\\d":
         return bool(re.search(r'\d', input_line))
-    elif pattern == "\\w":  # Check for the \w character class
+    elif pattern == "\\w":
         return bool(re.search(r'\w', input_line))
     elif len(pattern) == 1:
         return pattern in input_line
