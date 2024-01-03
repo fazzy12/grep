@@ -6,12 +6,12 @@ import re
 
 
 def match_pattern(input_line, pattern):
-    if pattern.startswith("[") and pattern.endswith("]"):  # Check for positive character group
-        characters = pattern[1:-1]  # Extract characters within square brackets
+    if pattern.startswith("[") and pattern.endswith("]"):
+        characters = pattern[1:-1]
         return any(char in input_line for char in characters)
-    elif pattern == "\\d":  # Check for the \d character class
+    elif pattern == "\\d":
         return bool(re.search(r'\d', input_line))
-    elif pattern == "\\w":  # Check for the \w character class
+    elif pattern == "\\w":
         return is_alphanumeric(input_line)
     elif len(pattern) == 1:
         return pattern in input_line
