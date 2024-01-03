@@ -4,25 +4,22 @@ import re
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
+
 def match_pattern(input_line, pattern):
-    pattern_index = 0
-    
-    for char in input_line:
-        if pattern_index >= len(pattern):
-            return False
-            
-        if pattern[pattern_index] == "\\d":
-            if not char.isdigit():
-                return False
-        elif pattern[pattern_index] == "\\w":
-            if not char.isalnum():
-                return False
-        elif pattern[pattern_index] != char:
-            return False
-        
-        pattern_index += 1
-    
-    return pattern_index == len(pattern)
+    if pattern.startswith("^"):
+        pattern = pattern[1:]
+        return input_line.startswith(pattern)
+    elif pattern == "\\d":
+        return bool(re.search(r'\d', input_line))
+    elif pattern == "\\w":
+        return is_alphanumeric(input_line)
+    elif len(pattern) == 1:
+        return pattern in input_line
+    else:
+        raise RuntimeError(f"Unhandled pattern: {pattern}")
+
+def is_alphanumeric(input_str):
+    return input_str.isalnum()
 
 def main():
     pattern = sys.argv[2]
