@@ -4,11 +4,10 @@ import re
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
-
 def match_pattern(input_line, pattern):
-    if pattern.startswith("[") and pattern.endswith("]"):
-        characters = pattern[1:-1]
-        return any(char in input_line for char in characters)
+    if pattern.startswith("[^") and pattern.endswith("]"):
+        characters = pattern[2:-1]
+        return any(char not in characters for char in input_line)
     elif pattern == "\\d":
         return bool(re.search(r'\d', input_line))
     elif pattern == "\\w":
@@ -20,6 +19,7 @@ def match_pattern(input_line, pattern):
 
 def is_alphanumeric(input_str):
     return input_str.isalnum()
+
 
 
 def main():
