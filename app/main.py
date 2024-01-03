@@ -9,6 +9,9 @@ def match_pattern(input_line, pattern):
     if pattern.startswith("^"):
         pattern = pattern[1:]
         return input_line.startswith(pattern)
+    elif pattern.endswith("$"):
+        pattern = pattern[:-1]
+        return input_line.endswith(pattern)
     elif pattern == "\\d":
         return bool(re.search(r'\d', input_line))
     elif pattern == "\\w":
