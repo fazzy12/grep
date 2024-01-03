@@ -6,15 +6,14 @@ import re
 
 
 def match_pattern(input_line, pattern):
-    if pattern == "\\d":
+    if pattern == "\\d":  # Check for the \d character class
         return bool(re.search(r'\d', input_line))
-    elif pattern == "\\w":
+    elif pattern == "\\w":  # Check for the \w character class
         return bool(re.search(r'\w', input_line))
     elif len(pattern) == 1:
         return pattern in input_line
     else:
         raise RuntimeError(f"Unhandled pattern: {pattern}")
-
 
 
 def main():
