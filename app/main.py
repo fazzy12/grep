@@ -5,36 +5,39 @@ import re
 # import lark - available if you need it!
 
 def match_pattern(input_line, pattern):
-    if pattern.startswith("[^") and pattern.endswith("]"):
-        characters = pattern[2:-1]
-        return any(char not in characters for char in input_line)
-    elif pattern == "\\d":
-        return bool(re.search(r'\d', input_line))
-    elif pattern == "\\w":
-        return is_alphanumeric(input_line)
-    elif len(pattern) == 1:
-        return pattern in input_line
-    else:
-        raise RuntimeError(f"Unhandled pattern: {pattern}")
-
-def is_alphanumeric(input_str):
-    return input_str.isalnum()
-
-
+    pattern_index = 0
+    
+    for char in input_line:
+        if pattern_index >= len(pattern):
+            return False
+            
+        if pattern[pattern_index] == "\\d":
+            if not char.isdigit():
+                return False
+        elif pattern[pattern_index] == "\\w":
+            if not char.isalnum():
+                return False
+        elif pattern[pattern_index] != char:
+            return False
+        
+        pattern_index += 1
+    
+    return pattern_index == len(pattern)
 
 def main():
     pattern = sys.argv[2]
-    input_line = sys.stdin.read()
+    input_line = sys.stdin.read().strip()
 
     if sys.argv[1] != "-E":
         print("Expected first argument to be '-E'")
         exit(1)
 
-    matched_pattern = match_pattern(input_line, pattern)
-    if matched_pattern:
-        print(f"Pattern '{matched_pattern}' found: Exit status 0")
+    if match_pattern(input_line, pattern):
+        print(f"Pattern '{pattern}' found: Exit status 0")
+        exit(0)
     else:
         print("Pattern not found: Exit status 1")
+        exit(1)
 
 if __name__ == "__main__":
     main()
