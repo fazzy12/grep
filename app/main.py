@@ -6,14 +6,20 @@ import re
 
 
 def match_pattern(input_line, pattern):
-    if pattern == "\\d":  # Check for the \d character class
+    if pattern.startswith("[") and pattern.endswith("]"):  # Check for positive character group
+        characters = pattern[1:-1]  # Extract characters within square brackets
+        return any(char in input_line for char in characters)
+    elif pattern == "\\d":  # Check for the \d character class
         return bool(re.search(r'\d', input_line))
     elif pattern == "\\w":  # Check for the \w character class
-        return bool(re.search(r'\w', input_line))
+        return is_alphanumeric(input_line)
     elif len(pattern) == 1:
         return pattern in input_line
     else:
         raise RuntimeError(f"Unhandled pattern: {pattern}")
+
+def is_alphanumeric(input_str):
+    return input_str.isalnum()
 
 
 def main():
