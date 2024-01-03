@@ -7,11 +7,21 @@ import re
 
 def match_pattern(input_line, pattern):
     if pattern.startswith("^"):
-        pattern = pattern[1:]
+        pattern = pattern[1:]  # Remove the "^" anchor from the pattern
         return input_line.startswith(pattern)
     elif pattern.endswith("$"):
-        pattern = pattern[:-1]
+        pattern = pattern[:-1]  # Remove the "$" anchor from the pattern
         return input_line.endswith(pattern)
+    elif pattern.endswith("+"):
+        pattern = pattern[:-1]  # Remove the "+" quantifier from the pattern
+        if not pattern:
+            raise RuntimeError("Invalid pattern: Quantifier without preceding character or class")
+        return bool(re.search(f"{pattern}+", input_line))
+    elif "+" in pattern:
+        parts = pattern.split("+")
+        if len(parts) != 2:
+            raise RuntimeError("Invalid pattern: Multiple '+' quantifiers found")
+        return bool(re.search(f"{parts[0]}+{parts[1]}", input_line))
     elif pattern == "\\d":
         return bool(re.search(r'\d', input_line))
     elif pattern == "\\w":
@@ -32,11 +42,15 @@ def main():
         print("Expected first argument to be '-E'")
         exit(1)
 
-    if match_pattern(input_line, pattern):
-        print(f"Pattern '{pattern}' found: Exit status 0")
-        exit(0)
-    else:
-        print("Pattern not found: Exit status 1")
+    try:
+        if match_pattern(input_line, pattern):
+            print(f"Pattern '{pattern}' found: Exit status 0")
+            exit(0)
+        else:
+            print("Pattern not found: Exit status 1")
+            exit(1)
+    except RuntimeError as e:
+        print(e)
         exit(1)
 
 if __name__ == "__main__":
