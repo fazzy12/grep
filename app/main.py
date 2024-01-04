@@ -25,6 +25,10 @@ def match_pattern(input_line, pattern):
     elif pattern.endswith("?"):
         pattern = pattern[:-1]  # Remove the "?" quantifier from the pattern
         return bool(re.search(f"{pattern}?", input_line))
+    elif "." in pattern:
+        escaped_pattern = re.escape(pattern)
+        regex_pattern = escaped_pattern.replace("\\.", ".")
+        return bool(re.search(regex_pattern, input_line))
     elif pattern == "\\d":
         return bool(re.search(r'\d', input_line))
     elif pattern == "\\w":

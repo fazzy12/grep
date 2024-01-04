@@ -36,6 +36,20 @@ class TestMatchPattern(unittest.TestCase):
         self.assertTrue(match_pattern("dogs", "dogs?"))
         self.assertTrue(match_pattern("dog", "dogs?"))
         self.assertFalse(match_pattern("cat", "dogs?"))
+    
+
+
+    def test_wildcard_match(self):
+        input_line = "dog"
+            
+        # Test pattern that should match
+        pattern1 = "d.g"
+        self.assertTrue(match_pattern(input_line, pattern1))
+
+        # Test pattern that should not match
+        pattern2 = "c.g"
+        self.assertFalse(match_pattern(input_line, pattern2))
+            
 
 
 if __name__ == "__main__":
