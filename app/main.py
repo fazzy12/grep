@@ -22,6 +22,9 @@ def match_pattern(input_line, pattern):
         if len(parts) != 2:
             raise RuntimeError("Invalid pattern: Multiple '+' quantifiers found")
         return bool(re.search(f"{parts[0]}+{parts[1]}", input_line))
+    elif pattern.endswith("?"):
+        pattern = pattern[:-1]  # Remove the "?" quantifier from the pattern
+        return bool(re.search(f"{pattern}?", input_line))
     elif pattern == "\\d":
         return bool(re.search(r'\d', input_line))
     elif pattern == "\\w":
@@ -29,7 +32,7 @@ def match_pattern(input_line, pattern):
     elif len(pattern) == 1:
         return pattern in input_line
     else:
-        raise RuntimeError(f"Unhandled pattern: {pattern}")
+       False
 
 def is_alphanumeric(input_str):
     return input_str.isalnum()
