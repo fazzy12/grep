@@ -36,3 +36,10 @@ The program will exit with status `0` if a match is found and `1` otherwise.
 4. Commit your changes (`git commit -am 'Add new feature'`).
 5. Push to the branch (`git push origin feature/new-feature`).
 6. Create a new `Pull Request`.
+
+
+## Design Documents
+
+For a detailed understanding of the design and architecture of this project, please refer to our [design documentation](/grep_utility_design.md).
+
+We recommend reading the design documents before diving deep into the code to get a clearer picture of the overall structure and design considerations.
