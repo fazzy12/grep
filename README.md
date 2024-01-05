@@ -1,39 +1,38 @@
-[![progress-banner](https://backend.codecrafters.io/progress/grep/4d0c8a7b-9b35-4fe3-afd2-77c65642240a)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# grep-like Utility in Python
 
-This is a starting point for Python solutions to the
-["Build Your Own grep" Challenge](https://app.codecrafters.io/courses/grep/overview).
+This project aims to provide a simplified `grep`-like utility using Python. It allows users to search for patterns within input text, supporting a range of regular expression features.
 
-[Regular expressions](https://en.wikipedia.org/wiki/Regular_expression)
-(Regexes, for short) are patterns used to match character combinations in
-strings. [`grep`](https://en.wikipedia.org/wiki/Grep) is a CLI tool for
-searching using Regexes.
+## Features
 
-In this challenge you'll build your own implementation of `grep`. Along the way
-we'll learn about Regex syntax, how parsers/lexers work, and how regular
-expressions are evaluated.
+- **Basic Pattern Matching**: Supports simple character-based pattern matching.
+- **Anchors**: Recognizes patterns starting or ending with specific characters.
+- **Quantifiers**: Supports patterns with quantifiers like `+` and `?`.
+- **Wildcards**: Recognizes the `.` character as a wildcard for any single character.
+- **Alternation**: Handles patterns with the `|` operator to match either of two patterns.
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+## Usage
 
-# Passing the first stage
+To run the program:
 
-The entry point for your `grep` implementation is in `app/main.py`. Study and
-uncomment the relevant code, and push your changes to pass the first stage:
-
-```sh
-git add .
-git commit -m "pass 1st stage" # any msg
-git push origin master
+```
+$ echo "input_text" | ./app/main.py -E "pattern"
 ```
 
-Time to move on to the next stage!
+* **input_text**: The text you want to search within.
+* **pattern**: The regular expression pattern you want to match against.
 
-# Stage 2 & beyond
+The program will exit with status `0` if a match is found and `1` otherwise.
 
-Note: This section is for stages 2 and beyond.
+## Dependencies
 
-1. Ensure you have `python (3.11)` installed locally
-1. Run `./your_grep.sh` to run your program, which is implemented in
-   `app/main.py`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+* Python 3.x
+* No external libraries required.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/new-feature`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature/new-feature`).
+6. Create a new `Pull Request`.
