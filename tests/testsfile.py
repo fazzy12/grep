@@ -36,8 +36,6 @@ class TestMatchPattern(unittest.TestCase):
         self.assertTrue(match_pattern("dogs", "dogs?"))
         self.assertTrue(match_pattern("dog", "dogs?"))
         self.assertFalse(match_pattern("cat", "dogs?"))
-    
-
 
     def test_wildcard_match(self):
         input_line = "dog"
@@ -49,6 +47,21 @@ class TestMatchPattern(unittest.TestCase):
         # Test pattern that should not match
         pattern2 = "c.g"
         self.assertFalse(match_pattern(input_line, pattern2))
+        
+        
+    def test_alternation_match(self):
+        # Test if the pattern "(cat|dog)" matches "cat"
+        self.assertTrue(match_pattern("cat", "(cat|dog)"))
+            
+        # Test if the pattern "(cat|dog)" matches "dog"
+        self.assertTrue(match_pattern("dog", "(cat|dog)"))
+
+        # Test if the pattern "(cat|dog)" does not match "apple"
+        self.assertFalse(match_pattern("apple", "(cat|dog)"))
+
+        # Test if the function raises a RuntimeError for an invalid pattern
+        with self.assertRaises(RuntimeError):
+            match_pattern("apple", "(cat|")
             
 
 
